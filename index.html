@@ -22,10 +22,11 @@
       /*
        * Globals
        */
-
+      @import url(http://fonts.googleapis.com/css?family=Slabo+27px);
       body {
-        font-family: Georgia, "Times New Roman", Times, serif;
+        font-family: Slabo, Times, serif;
         color: #555;
+        background-color: #D4E7F0;
       }
 
       h1, .h1,
@@ -120,8 +121,9 @@
        */
 
       .blog-main {
-        font-size: 18px;
+        font-size: 20px;
         line-height: 1.5;
+        background-color: #F6F4F4;
       }
 
       /* Sidebar modules for boxing content */
@@ -159,11 +161,12 @@
        */
 
       .blog-post {
-        margin-bottom: 60px;
+        margin-bottom: 40px;
       }
       .blog-post-title {
         margin-bottom: 5px;
         font-size: 40px;
+        margin-top: 15px;
       }
       .blog-post-meta {
         margin-bottom: 20px;
@@ -217,12 +220,10 @@
             <h2 class="blog-post-title" id="references">References</h2>
 
             <p>Pursuant to the completion of this project, I referenced the following materials:</p>
-              <ul><li><a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</li>
-              <li><a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</li>
-              <li><a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</li>
-              <li><a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</li>
-              <li><a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</li>
-              <li><a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</li>
+              <ul><li>A stackoverflow post regarding the <a href="http://stackoverflow.com/questions/20095673/python-shift-column-in-pandas-dataframe-up-by-one">pandas shift() function</a>.</li>
+              <li>Greg Reda's blog post regarding <a href="http://www.gregreda.com/2013/10/26/intro-to-pandas-data-structures/">pandas data structures</a>.</li>
+              <li>A stack exchange post regarding the <a href="http://stats.stackexchange.com/questions/31361/some-questions-about-two-sample-comparisons">statistical test comparisons</a>.</li>
+              <li>The Wikipedia Article for the <a href="http://en.wikipedia.org/wiki/Mann%E2%80%93Whitney_U_test#Normal_approximation">Mann-Whitney U Test</a></li>
               </ul>
 
           </div><!-- /.blog-post -->
@@ -230,58 +231,71 @@
           <div class="blog-post">
             <h2 class="blog-post-title" id="stat-test">Statistical Test</h2>
 
-            <p>1.1 This analysis determines whether ridership on the New York City Subway system is significantly different on rainy days versus on clear/non-rainy days.  The null hypothesis is that rain has no effect on mean ridership, i.e., the means of the rainy day ridership and clear day ridership are equal.  In order to determine this, I used the Mann-Whitney U Test.  This test provides a one-sided
+            <p>This analysis determines whether ridership on the New York City Subway system is significantly different on rainy days versus on clear/non-rainy days.</p>
+            <p>1.1 &nbsp; The null hypothesis is that rain has no effect on mean ridership, i.e., the means of the rainy day ridership and clear day ridership are equal.  In order to determine this, I used the Mann-Whitney U Test.  This test provides a one-sided p-value.  The p-critical value is 5%.</p>
+            <p>1.2 &nbsp; The Mann-Whitney U Test is applicible to this dataset because the data is not normally distributed and the sample sizes are sufficiently large.</p>
+            <p>1.3 &nbsp; The results of the U Test are:</p>
+              <ul>
+                <li>U = 1924409167</li>
+                <li>p = 0.024999912793489721</li>
+                <li>Mean ridership on rainy days = 1105.45</li>
+                <li>Mean ridership on clear days = 1090.28</li>
+              </ul>
+            <p>1.4 &nbsp; There is a significant difference between the means, above the critical p value of 5%.  So we can reject the null hypothesis that the two samples came from the same population.</p>
 
-              This analysis uses the Mann-Whitney U Test which tests whether the samples came from the same population.  The test provides a one-sided p-value.  The null hypothesis
-            What is the null hypothesis? What is your p-critical value?</p>
           </div><!-- /.blog-post -->
 
           <div class="blog-post">
             <h2 class="blog-post-title" id="regression">Linear Regression</h2>
 
-            <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-            <blockquote>
-              <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </blockquote>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            <p>2.1 &nbsp; What approach did you use to compute the coefficients theta and produce prediction for ENTRIESn_hourly in your regression model:
+Gradient descent (as implemented in exercise 3.5)
+OLS using Statsmodels
+Or something different?</p>
+            <p>2.2 &nbsp; What features (input variables) did you use in your model? Did you use any dummy variables as part of your features?</p>
+            <p>2.3 &nbsp; Why did you select these features in your model? We are looking for specific reasons that lead you to believe that
+the selected features will contribute to the predictive power of your model.
+Your reasons might be based on intuition. For example, response for fog might be: “I decided to use fog because I thought that when it is very foggy outside people might decide to use the subway more often.”
+Your reasons might also be based on data exploration and experimentation, for example: “I used feature X because as soon as I included it in my model, it drastically improved my R2 value.”</p>
+            <p>2.4 &nbsp; What are the coefficients (or weights) of the non-dummy features in your linear regression model?</p>
+            <p>2.5 &nbsp; What is your model’s R2 (coefficients of determination) value?</p>
+            <p>2.6 &nbsp; What does this R2 value mean for the goodness of fit for your regression model? Do you think this linear model to predict ridership is appropriate for this dataset, given this R2  value?</p>
+
           </div><!-- /.blog-post -->
 
           <div class="blog-post">
             <h2 class="blog-post-title" id="visualization">Visualization</h2>
 
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <ul>
-              <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-              <li>Donec id elit non mi porta gravida at eget metus.</li>
-              <li>Nulla vitae elit libero, a pharetra augue.</li>
-            </ul>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+            <p>Please include two visualizations that show the relationships between two or more variables in the NYC subway data.
+Remember to add appropriate titles and axes labels to your plots. Also, please add a short description below each figure commenting on the key insights depicted in the figure.</p>
+<p>3.1 &nbsp; One visualization should contain two histograms: one of  ENTRIESn_hourly for rainy days and one of ENTRIESn_hourly for non-rainy days.
+You can combine the two histograms in a single plot or you can use two separate plots.
+If you decide to use to two separate plots for the two histograms, please ensure that the x-axis limits for both of the plots are identical. It is much easier to compare the two in that case.
+For the histograms, you should have intervals representing the volume of ridership (value of ENTRIESn_hourly) on the x-axis and the frequency of occurrence on the y-axis. For example, each interval (along the x-axis), the height of the bar for this interval will represent the number of records (rows in our data) that have ENTRIESn_hourly that falls in this interval.
+Remember to increase the number of bins in the histogram (by having larger number of bars). The default bin width is not sufficient to capture the variability in the two samples.</p>
+<p>3.2 &nbsp; One visualization can be more freeform. You should feel free to implement something that we discussed in class (e.g., scatter plots, line plots) or attempt to implement something more advanced if you'd like. Some suggestions are:
+Ridership by time-of-day
+Riders
           </div><!-- /.blog-post -->
 
           <div class="blog-post">
             <h2 class="blog-post-title" id="conclusion">Conclusion</h2>
 
-            <p>Cum sociis natoque penatibus et magnis <a href="#">dis parturient montes</a>, nascetur ridiculus mus. Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Sed posuere consectetur est at lobortis. Cras mattis consectetur purus sit amet fermentum.</p>
-            <blockquote>
-              <p>Curabitur blandit tempus porttitor. <strong>Nullam quis risus eget urna mollis</strong> ornare vel eu leo. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            </blockquote>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Vivamus sagittis lacus vel augue laoreet rutrum faucibus dolor auctor. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+            <p>Please address the following questions in detail. Your answers should be 1-2 paragraphs long.
+<p>4.1 &nbsp; From your analysis and interpretation of the data, do more people ride
+the NYC subway when it is raining or when it is not raining?</p>
+<p>4.2 What analyses lead you to this conclusion? You should use results from both your statistical
+tests and your linear regression to support your analysis.</p>
           </div><!-- /.blog-post -->
 
           <div class="blog-post">
             <h2 class="blog-post-title" id="reflection">Reflection</h2>
 
-            <p>Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Aenean lacinia bibendum nulla sed consectetur. Etiam porta sem malesuada magna mollis euismod. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            <ul>
-              <li>Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</li>
-              <li>Donec id elit non mi porta gravida at eget metus.</li>
-              <li>Nulla vitae elit libero, a pharetra augue.</li>
-            </ul>
-            <p>Etiam porta <em>sem malesuada magna</em> mollis euismod. Cras mattis consectetur purus sit amet fermentum. Aenean lacinia bibendum nulla sed consectetur.</p>
-            <p>Donec ullamcorper nulla non metus auctor fringilla. Nulla vitae elit libero, a pharetra augue.</p>
+            <p>Please address the following questions in detail. Your answers should be 1-2 paragraphs long.
+<p>5.1 &nbsp;Please discuss potential shortcomings of the methods of your analysis, including:
+Dataset,
+Analysis, such as the linear regression model or statistical test.</p>
+<p>5.2 (Optional) &nbsp; Do you have any other insight about the dataset that you would like to share with us?</p>
           </div><!-- /.blog-post -->
 
 <!--           <nav>

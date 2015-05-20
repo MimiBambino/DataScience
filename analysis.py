@@ -3,6 +3,11 @@ import pandasql
 import csv
 import numpy as np
 import matplotlib.pyplot as plt
+import scipy
+import scipy.stats
+from ggplot import *
+import sys
+import statsmodels.api as sm
 
 filename = ("weather_underground.csv")
 
@@ -204,3 +209,190 @@ def entries_histogram(turnstile_weather):
     rain['ENTRIESn_hourly'].hist() # your code here to plot a historgram for hourly entries when it is raining
     no_rain['ENTRIESn_hourly'].hist() # your code here to plot a historgram for hourly entries when it is not raining
     return plt
+
+def mann_whitney_plus_means(turnstile_weather):
+    '''
+    Calculates the means of the entries with rain and without rain and runs the
+    Mann Whitney U-test.
+    '''
+
+    ### YOUR CODE HERE ###
+    rain = turnstile_weather[turnstile_weather['rain'] == 1]
+    no_rain = turnstile_weather[turnstile_weather['rain'] == 0]
+    with_rain_mean = np.mean(rain['ENTRIESn_hourly'])
+    without_rain_mean = np.mean(no_rain['ENTRIESn_hourly'])
+    U, p = scipy.stats.mannwhitneyu(rain['ENTRIESn_hourly'],no_rain['ENTRIESn_hourly'])
+
+    return with_rain_mean, without_rain_mean, U, p # leave this line for the grader
+
+# Gradient Descent Linear Model
+def normalize_features(df):
+    """
+    Normalize the features in the data set.
+    """
+    mu = df.mean()
+    sigma = df.std()
+
+    if (sigma == 0).any():
+        raise Exception("One or more features had the same value for all samples, and thus could " + \
+                         "not be normalized. Please do not include features with only a single value " + \
+                         "in your model.")
+    df_normalized = (df - df.mean()) / df.std()
+
+    return df_normalized, mu, sigma
+
+def compute_cost(features, values, theta):
+    """
+    Compute the cost function given a set of features / values,
+    and the values for our thetas.
+    """
+    # your code here
+    m = len(values)
+    SSE = np.square(np.dot(features, theta) - values).sum()
+    cost = SSE/(2*m)
+    return cost
+
+def gradient_descent(features, values, theta, alpha, num_iterations):
+    """
+    Perform gradient descent given a data set with an arbitrary number of features.
+    """
+
+    m = len(values)
+    cost_history = []
+
+    for i in range(num_iterations):
+        # your code here
+        predicted_values = np.dot(features, theta)
+        theta = theta - alpha / m * np.dot((predicted_values - values), features)
+
+        cost = compute_cost(features, values, theta)
+        cost_history.append(cost)
+    return theta, pandas.Series(cost_history)
+
+def predictions(dataframe):
+    '''
+    If you are using your own algorithm/models, see if you can optimize your code so
+    that it runs faster.
+    '''
+    # Select Features (try different features!)
+    #features = dataframe[['rain', 'precipi', 'Hour', 'meantempi']]     #0.46397
+    #features = dataframe[['rain', 'precipi', 'Hour', 'mintempi']]      #0.46429
+    #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi']] #0.46467
+    #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']] #0.46536, num_iter = 100
+    #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']] #0.46532, alpha=0.05
+    features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']]
+
+    # Add UNIT to features using dummy variables
+    dummy_units = pandas.get_dummies(dataframe['UNIT'], prefix='unit')
+    features = features.join(dummy_units)
+
+    # Values
+    values = dataframe['ENTRIESn_hourly']
+    m = len(values)
+
+    features, mu, sigma = normalize_features(features)
+    features['ones'] = np.ones(m) # Add a column of 1s (y intercept)
+
+    # Convert features and values to numpy arrays
+    features_array = np.array(features)
+    values_array = np.array(values)
+
+    # Set values for alpha, number of iterations.
+    alpha = 0.2 # please feel free to change this value
+    num_iterations = 100 # please feel free to change this value
+
+    # Initialize theta, perform gradient descent
+    theta_gradient_descent = np.zeros(len(features.columns))
+    theta_gradient_descent, cost_history = gradient_descent(features_array,
+                                                            values_array,
+                                                            theta_gradient_descent,
+                                                            alpha,
+                                                            num_iterations)
+
+    plot = None
+    plot = plot_cost_history(alpha, cost_history)
+
+    predictions = np.dot(features_array, theta_gradient_descent)
+    return predictions, plot
+
+
+def plot_cost_history(alpha, cost_history):
+   """This function is for viewing the plot of your cost history.
+   You can run it by uncommenting this
+
+       plot_cost_history(alpha, cost_history)
+
+   call in predictions.
+
+   If you want to run this locally, you should print the return value
+   from this function.
+   """
+   cost_df = pandas.DataFrame({
+      'Cost_History': cost_history,
+      'Iteration': range(len(cost_history))
+   })
+   return ggplot(cost_df, aes('Iteration', 'Cost_History')) + \
+      geom_point() + ggtitle('Cost History for alpha = %.3f' % alpha )
+
+def plot_residuals(turnstile_weather, predictions):
+    '''
+    Plot a histogram of the residuals (the difference between the original
+    hourly entry data and the predicted values).
+    http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm
+    '''
+    plt.figure()
+    (turnstile_weather['''ENTRIESn_hourly'''] - predictions).hist(bins=100)
+    return plt
+
+def compute_r_squared(data, predictions):
+    '''
+    Given a list of data pointpredicted data points, calculate the R^2 value.
+    '''
+
+    # your code here
+    SST = ((data - np.mean(data))**2).sum()
+    SSReg = ((predictions - data)**2).sum()
+    r_squared = 1 - SSReg / SST
+    return r_squared
+
+# def normalize_features(df):
+#     """
+#     Normalize the features in the data set.
+#     """
+#     mu = df.mean()
+#     sigma = df.std()
+
+#     if (sigma == 0).any():
+#         raise Exception("One or more features had the same value for all samples, and thus could " + \
+#                          "not be normalized. Please do not include features with only a single value " + \
+#                          "in your model.")
+#     df_normalized = (df - df.mean()) / df.std()
+
+#     return df_normalized, mu, sigma
+
+def predictions(weather_turnstile):
+    #
+    # Your implementation goes here. Feel free to write additional
+    # helper functions
+    #
+    features = weather_turnstile[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']]
+
+    # Add UNIT to features using dummy variables
+    dummy_units = pandas.get_dummies(weather_turnstile['UNIT'], prefix='unit')
+    features = features.join(dummy_units)
+
+    values = weather_turnstile['ENTRIESn_hourly']
+    m = len(values)
+
+    features, mu, sigma = normalize_features(features)
+    features['ones'] = np.ones(m) # Add a column of 1s (y intercept)
+
+    features_array = np.array(features)
+    features_array = sm.add_constant(features_array)
+
+    values_array = np.array(values)
+
+    model = sm.OLS(values_array, features_array)
+    res = model.fit()
+    prediction = model.predict(res.params)
+    return prediction
