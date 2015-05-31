@@ -17,7 +17,7 @@ by Cynthia O'Donnell
 
 *1.2 Why is this statistical test applicable to the dataset? In particular, consider the assumptions that the test is making about the distribution of ridership in the two samples.*
 
-> This data is not normally distributed and many other statistical tests such as Welch's t-test assume normally distributed data. The Mann-Whitney U Test does not assume normally distribution.  The Mann-Whitney does assume a certain minimum sample size (20 for each sample), but this data is sufficiently large to use this test.
+> This data is not normally distributed and many other statistical tests such as Welch's t-test assume normally distributed data. The Mann-Whitney U Test does not assume normal distribution.  The Mann-Whitney U Test does assume a certain minimum sample size (20 for each sample), but this data is sufficiently large to use this test.
 
 *1.3 What results did you get from this statistical test? These should include the following numerical values: p-values, as well as the means for each of the two samples under test.*
 > ```
@@ -30,7 +30,7 @@ p-value: 0.024999912793489721
 *1.4 What is the significance and interpretation of these results?*
 
 
-> The p-critical value is .05.  As stated above, we must multiply the test statistic by 2 because it is a two sided test. So the test statistic of 0.04999982558 just barely beats the critical value and we can reject the null hypothesis. The U-statistic is very large.  It is much closer to the maximum U value than half of the maximum U value.  A U value of half of the maximum is an indicator that the null hyothesis is true.  Because the U statistic is much larger increases my confidence that this result is statistically significant despite the fact that the p value is so close to the p critical value.
+> The p-critical value is .05.  As stated above, we must multiply the test statistic by 2 because it is a two sided test. So the test statistic of 0.04999982558 just barely beats the critical value and we can reject the null hypothesis. The U-statistic is very large. The maximum U value is the product of the two sample sizes and our U-statistic is very near that.  A U statistic that is very close to the maximum value increases my confidence that this result is statistically significant despite the fact that the p value is so close to the p critical value.
 
 ##Section 2. Linear Regression
 *2.1 What approach did you use to compute the coefficients theta and produce prediction for ENTRIESn_hourly in your regression model?*
