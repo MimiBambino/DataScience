@@ -86,11 +86,11 @@ p-value: 0.024999912793489721
 ##Section 4. Conclusion
 *4.1 From your analysis and interpretation of the data, do more people ride the NYC subway when it is raining or when it is not raining?*
 
-> Particularly given the results from the Mann-Whitney U test (p-value: 0.025), we can say with a high level of certainty that more people ride the NYC subway when it is raining.  It is important to note that simply looking at the means of both data sets is insufficient, due to variance.  The Mann-Whitney U test is needed to quantitatively confirm that the two data sets are statistically different.
+> Given the result of the Mann-Whitney U test, we can conclude that more people ride the NYC subway when it is raining, but we can only say this for the month of May.  It is unclear how meaningful this is, though because the difference in the means is actually very small.  It is difficult to see how the city or anyone might use the fact that the mean ridership for rainy days is very slightly higher than on clear days.
 
 *4.2 What analyses lead you to this conclusion? You should use results from both your statistical tests and your linear regression to support your analysis.*
 
-> The positive coefficient for the rain (0 or 1) parameter indicates that the presence of rain contributes to increased ridership.  This may have not been the case for all data points, with the R^2 being approximately 46%; however, the small residuals show relatively high accuracy, given our objectives.  Although the means of both data sets are not that different from each other, the Mann-Whitney U test did indicate that there was a statistically significant change in ridership for rain vs. no-rain.  It is conscientious to claim that rain increases subway ridership.
+> The coefficient for the rain variable provided by the linear model is positive.  This indicates that rain contributes to increased ridership. Additionally, the Mann-Whitney U-statistic and p value indicate that there was a statistically significant difference in ridership on rainy days.
 
 ##Section 5. Reflection
 *5.1 Please discuss potential shortcomings of the methods of your analysis, including: data set, linear regression model, and statistical tests.*
@@ -99,7 +99,7 @@ p-value: 0.024999912793489721
 
 > If we look at the data as a sample of rainy days and clear days, the sample size is actually 10 for the rainy days and 20 for the clear days. The Mann-Whitney U-test requires a sample size of at least 20 and, therefore, we should not use the Mann-Whitney U-test for this data because the sample of rainy days is not large enough.
 
-> It would be nice to have data regarding demographics of subway riders. What proportion of subway riders are tourists, how many people are monthly passholders, what are the occupations of the riders, how many riders own vehicles, and whether they are recreational riders or commuters. The proportion of tourists in May and the proportion of recreational riders are important because, when it rains, recreational riders may choose to just stay indoors, thereby reducing ridership overall.  But commuters may be more likely to ride.
+> It would be nice to have data regarding demographics of subway riders. What proportion of subway riders are tourists, how many people are monthly passholders, what are the occupations of the riders, how many riders own vehicles, and whether they are recreational riders or commuters. The proportion of tourists in May and the proportion of recreational riders are important because, when it rains, recreational riders may choose to just stay indoors, thereby reducing ridership overall.  But commuters may be more likely to ride when it rains.
 
 > If data from other months was included we should broaden the hypothesis to precipitation as opposed to rain because several months of the year it will not rain, but snow.  This information should be captured in the precipitation variable.
 
