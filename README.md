@@ -29,7 +29,6 @@ p-value: 0.024999912793489721
 
 *1.4 What is the significance and interpretation of these results?*
 
-
 > The p-critical value is .05.  As stated above, we must multiply the test statistic by 2 because it is a two sided test. So the test statistic of 0.04999982558 just barely beats the critical value and we can reject the null hypothesis. The U-statistic is very large. The maximum U value is the product of the two sample sizes and our U-statistic is very near that.  A U statistic that is very close to the maximum value increases my confidence that this result is statistically significant despite the fact that the p value is so close to the p critical value.
 
 ##Section 2. Linear Regression
@@ -43,11 +42,11 @@ p-value: 0.024999912793489721
 
 *2.3 Why did you select these features in your model? We are looking for specific reasons that lead you to believe that the selected features will contribute to the predictive power of your model.*
 
-> I started the analysis with several of the variables and UNIT as a dummy variable. After quite a bit of experimentation, I found that adding Hour as a dummy variable improved R2 by about 9%. I included Hour becuase I assumed that ridership would be influenced by the time of day, especially if it was also raining.
+> I started the analysis with several of the variables and UNIT as a dummy variable. After quite a bit of experimentation, I found that adding Hour as a dummy variable improved R2 by about 9%. I included Hour because I assumed that ridership would be influenced by the time of day, especially if it was also raining.
 
-After that, I began removing variables to see how much R2 would decrease. I found that removing some variables did not affect R2 at all.  Removing all of the others only affected R2 by 0.2% or less.  Eventually, I just had rain.  I kept rain instead of another highly correlated variable (like precipi) because it was more relevant to the study.
+>After that, I began removing variables to see how much R2 would decrease. I found that removing some variables did not affect R2 at all.  Removing all of the others only affected R2 by 0.2% or less.  Eventually, I just had rain.  I kept rain instead of another highly correlated variable (like precipi) because it was more relevant to the study.
 
-Finally, I included the UNITs as dummy variables, because this drastically improved R2.
+>Finally, I included the UNITs as dummy variables, because this drastically improved R2.
 
 *2.4 What are the coefficients (or weights) of the non-dummy features in your linear regression model?*
 
