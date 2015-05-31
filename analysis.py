@@ -9,8 +9,6 @@ from ggplot import *
 import sys
 import statsmodels.api as sm
 
-filename = ("weather_underground.csv")
-
 def num_rainy_days(filename):
     '''
     Run a SQL query on a dataframe of weather data.  Returns the number of days
@@ -25,10 +23,10 @@ def num_rainy_days(filename):
 
     #Execute your SQL command against the pandas frame
     rainy_days = pandasql.sqldf(q.lower(), locals())
-    print rainy_days
+    print "Rainy days: ", rainy_days
     return rainy_days
 
-num_rainy_days(filename)
+#num_rainy_days('weather_underground.csv')
 
 def max_temp_aggregate_by_fog(filename):
     '''
@@ -45,10 +43,8 @@ def max_temp_aggregate_by_fog(filename):
 
     #Execute your SQL command against the pandas frame
     foggy_days = pandasql.sqldf(q.lower(), locals())
-    print foggy_days
+    print "Foggy days: ", foggy_days
     return foggy_days
-
-max_temp_aggregate_by_fog(filename)
 
 def avg_weekend_temperature(filename):
     '''
@@ -65,10 +61,8 @@ def avg_weekend_temperature(filename):
 
     #Execute your SQL command against the pandas frame
     mean_temp_weekends = pandasql.sqldf(q.lower(), locals())
-    print mean_temp_weekends
+    print "Mean temp weekends: ", mean_temp_weekends
     return mean_temp_weekends
-
-avg_weekend_temperature(filename)
 
 def avg_min_temperature(filename):
     '''
@@ -85,90 +79,86 @@ def avg_min_temperature(filename):
 
     #Execute your SQL command against the pandas frame
     avg_min_temp_rainy = pandasql.sqldf(q.lower(), locals())
-    print avg_min_temp_rainy
+    print "Avg_min_temp_rainy: ", avg_min_temp_rainy
     return avg_min_temp_rainy
 
-avg_min_temperature(filename)
+# def fix_turnstile_data(filenames):
+#     '''
+#     Filenames is a list of MTA Subway turnstile text files.
+#     Returns updated file with only one entry per row.
+#     '''
+#     for name in filenames:
+#         # your code here
+#         f_in = open(name, 'r')
+#         f_out = open('updated_'+name, 'w')
 
-# I don't have the list of filenames for the next 2 functions
-def fix_turnstile_data(filenames):
-    '''
-    Filenames is a list of MTA Subway turnstile text files.
-    Returns updated file with only one entry per row.
-    '''
-    for name in filenames:
-        # your code here
-        f_in = open(name, 'r')
-        f_out = open('updated_'+name, 'w')
+#         reader_in = csv.reader(f_in, delimiter=',')
+#         writer_out = csv.writer(f_out, delimiter=',')
 
-        reader_in = csv.reader(f_in, delimiter=',')
-        writer_out = csv.writer(f_out, delimiter=',')
+#         for line in reader_in:
+#             zero = line[0]
+#             one = line[1]
+#             two = line[2]
+#             num = 3
+#             for i in range(8):
+#                 try:
+#                     entry = [zero, one, two, line[num], line[num + 1], line[num + 2], line[num + 3], line[num + 4]]
+#                     writer_out.writerow(entry)
+#                     num += 5
+#                 except:
+#                     continue
+#         f_in.close()
+#         f_out.close()
 
-        for line in reader_in:
-            zero = line[0]
-            one = line[1]
-            two = line[2]
-            num = 3
-            for i in range(8):
-                try:
-                    entry = [zero, one, two, line[num], line[num + 1], line[num + 2], line[num + 3], line[num + 4]]
-                    writer_out.writerow(entry)
-                    num += 5
-                except:
-                    continue
-        f_in.close()
-        f_out.close()
+# files =
+# fix_turnstile_data(files)
+# updated_files = ["updated_turnstile_110528.txt", "updated_turnstile_110604.txt"]
 
-files = ["turnstile_110528.txt", "turnstile_110604.txt"]
-fix_turnstile_data(files)
-updated_files = ["updated_turnstile_110528.txt", "updated_turnstile_110604.txt"]
+# def create_master_turnstile_file(filenames, output_file):
+#     '''
+#     Consolidates the files in the list filenames into one output_file, including
+#     a header row.
+#     '''
+#     with open(output_file, 'w') as master_file:
+#        master_file.write('C/A,UNIT,SCP,DATEn,TIMEn,DESCn,ENTRIESn,EXITSn\n')
+#        for filename in filenames:
+#             f_in = open(filename, 'r')
+#             for line in f_in:
+#                 master_file.write(line)
+#             f_in.close()
 
-def create_master_turnstile_file(filenames, output_file):
-    '''
-    Consolidates the files in the list filenames into one output_file, including
-    a header row.
-    '''
-    with open(output_file, 'w') as master_file:
-       master_file.write('C/A,UNIT,SCP,DATEn,TIMEn,DESCn,ENTRIESn,EXITSn\n')
-       for filename in filenames:
-            f_in = open(filename, 'r')
-            for line in f_in:
-                master_file.write(line)
-            f_in.close()
+# create_master_turnstile_file(updated_files, "cynthia_master.csv")
 
-create_master_turnstile_file(updated_files, "cynthia_master.csv")
+# def filter_by_regular(filename):
+#     '''
+#     Reads the csv file located at filename into a pandas dataframe, and filters
+#     the dataframe to only rows where the 'DESCn' column has the value 'REGULAR'.
+#     '''
 
-def filter_by_regular(filename):
-    '''
-    Reads the csv file located at filename into a pandas dataframe, and filters
-    the dataframe to only rows where the 'DESCn' column has the value 'REGULAR'.
-    '''
+#     turnstile_data = pandas.read_csv(filename)
+#     turnstile_data = turnstile_data[turnstile_data['DESCn'] == 'REGULAR']
+#     return turnstile_data
 
-    turnstile_data = pandas.read_csv(filename)
-    turnstile_data = turnstile_data[turnstile_data['DESCn'] == 'REGULAR']
-    return turnstile_data
+# data = filter_by_regular("cynthia_master.csv")
 
-data = filter_by_regular("cynthia_master.csv")
-df = pandas.read(data)
+# def get_hourly_entries(df):
+#     '''
+#     Adds a new column of the count of entries since the last reading
+#     '''
+#     df['ENTRIESn_hourly'] = abs(df['ENTRIESn'] - df['ENTRIESn'].shift(1)).fillna(1)
+#     return df
 
-def get_hourly_entries(df):
-    '''
-    Adds a new column of the count of entries since the last reading
-    '''
-    df['ENTRIESn_hourly'] = abs(df['ENTRIESn'] - df['ENTRIESn'].shift(1)).fillna(1)
-    return df
+# df = get_hourly_entries(data)
 
-df = get_hourly_entries(df)
+# def get_hourly_exits(df):
+#     '''
+#     Adds a new column of the count of exits since the last reading
+#     '''
+#     #your code here
+#     df['EXITSn_hourly'] = abs(df['EXITSn'] - df['EXITSn'].shift(1)).fillna(0)
+#     return df
 
-def get_hourly_exits(df):
-    '''
-    Adds a new column of the count of exits since the last reading
-    '''
-    #your code here
-    df['EXITSn_hourly'] = abs(df['EXITSn'] - df['EXITSn'].shift(1)).fillna(0)
-    return df
-
-df = get_hourly_exits(df)
+# df = get_hourly_exits(df)
 
 def time_to_hour(time):
     '''
@@ -198,17 +188,84 @@ def reformat_subway_dates(date):
     return date_formatted
 
 turnstile_weather = "turnstile_data_master_with_weather.csv"
+turnstile_weather = pandas.read_csv(turnstile_weather)
 
 def entries_histogram(turnstile_weather):
     '''
     Returns a histogram of entries on rainy days and entries on clear days.
     '''
-    rain = turnstile_weather[turnstile_weather['rain'] == 1]
-    no_rain = turnstile_weather[turnstile_weather['rain'] == 0]
+    no_rain = turnstile_weather['ENTRIESn_hourly'][turnstile_weather['rain'] == 0]
+    rain = turnstile_weather['ENTRIESn_hourly'][turnstile_weather['rain'] == 1]
+
+    bins = 400
+    alpha = 0.7
+    xmin = ymin = 0
+    xmax = 5000
+    ymax = 35000
+
     plt.figure()
-    rain['ENTRIESn_hourly'].hist() # your code here to plot a historgram for hourly entries when it is raining
-    no_rain['ENTRIESn_hourly'].hist() # your code here to plot a historgram for hourly entries when it is not raining
+    no_rain.hist(bins=bins, alpha=alpha) # your code here to plot a historgram for hourly entries when it is not raining
+    rain.hist(bins=bins, alpha=alpha) # your code here to plot a historgram for hourly entries when it is raining
+
+    plt.axis([xmin, xmax, ymin, ymax])
+    plt.suptitle('Histogram of ENTRIESn_hourly')
+    plt.xlabel('ENTRIESn_hourly')
+    plt.ylabel('Count')
+    plt.legend(['No rain', 'Rain'])
+    plt.show()
+
     return plt
+
+def entries_histogram_prop(turnstile_weather):
+    '''
+    Returns a histogram of entries on rainy days and entries on clear days.
+    '''
+    rain = turnstile_weather['ENTRIESn_hourly'][turnstile_weather['rain'] == 0]
+    count_rain = len(rain)
+    no_rain = turnstile_weather['ENTRIESn_hourly'][turnstile_weather['rain'] == 1]
+    count_no_rain = len(no_rain)
+    rain_prop = rain / (count_rain + count_no_rain)
+    no_rain_prop = no_rain / (count_rain + count_no_rain)
+
+    bins = 100
+    alpha = 0.7
+    xmin = ymin = 0
+    xmax = 600
+    ymax = 100
+
+    plt.figure()
+    rain.hist(bins=bins, alpha=alpha) # your code here to plot a historgram for hourly entries when it is raining
+    no_rain.hist(bins=bins, alpha=alpha) # your code here to plot a historgram for hourly entries when it is not raining
+
+    plt.axis([xmin, xmax, ymin, ymax])
+    plt.suptitle('Histogram of ENTRIESn_hourly')
+    plt.xlabel('ENTRIESn_hourly')
+    plt.ylabel('Count')
+    plt.legend(['No rain', 'Rain'])
+    plt.show()
+
+    return plt
+
+entries_histogram(turnstile_weather)
+
+def riders_by_hour(turnstile_weather):
+
+    hourly_avg = []
+    for i in range(23):
+        data = turnstile_weather['ENTRIESn_hourly'][turnstile_weather['Hour'] == i]
+        avg = np.mean(data)
+        hourly_avg.append(avg)
+
+    plt.plot(range(23), hourly_avg, linewidth=4, c='g')
+    plt.xlim(0,22)
+    plt.xlabel('Hour')
+    plt.title('Average Number of Riders Per Hour')
+    plt.ylabel('Rider Count')
+    plt.fill_between(range(23), hourly_avg, color='green')
+
+    plt.show()
+
+#riders_by_hour(turnstile_weather)
 
 def mann_whitney_plus_means(turnstile_weather):
     '''
@@ -223,137 +280,140 @@ def mann_whitney_plus_means(turnstile_weather):
     without_rain_mean = np.mean(no_rain['ENTRIESn_hourly'])
     U, p = scipy.stats.mannwhitneyu(rain['ENTRIESn_hourly'],no_rain['ENTRIESn_hourly'])
 
+    print  with_rain_mean, without_rain_mean, U, p
     return with_rain_mean, without_rain_mean, U, p # leave this line for the grader
 
-# Gradient Descent Linear Model
-def normalize_features(df):
-    """
-    Normalize the features in the data set.
-    """
-    mu = df.mean()
-    sigma = df.std()
+#mann_whitney_plus_means(turnstile_weather)
 
-    if (sigma == 0).any():
-        raise Exception("One or more features had the same value for all samples, and thus could " + \
-                         "not be normalized. Please do not include features with only a single value " + \
-                         "in your model.")
-    df_normalized = (df - df.mean()) / df.std()
+# # Gradient Descent Linear Model
+# def normalize_features(df):
+#     """
+#     Normalize the features in the data set.
+#     """
+#     mu = df.mean()
+#     sigma = df.std()
 
-    return df_normalized, mu, sigma
+#     if (sigma == 0).any():
+#         raise Exception("One or more features had the same value for all samples, and thus could " + \
+#                          "not be normalized. Please do not include features with only a single value " + \
+#                          "in your model.")
+#     df_normalized = (df - df.mean()) / df.std()
 
-def compute_cost(features, values, theta):
-    """
-    Compute the cost function given a set of features / values,
-    and the values for our thetas.
-    """
-    # your code here
-    m = len(values)
-    SSE = np.square(np.dot(features, theta) - values).sum()
-    cost = SSE/(2*m)
-    return cost
+#     return df_normalized, mu, sigma
 
-def gradient_descent(features, values, theta, alpha, num_iterations):
-    """
-    Perform gradient descent given a data set with an arbitrary number of features.
-    """
+# def compute_cost(features, values, theta):
+#     """
+#     Compute the cost function given a set of features / values,
+#     and the values for our thetas.
+#     """
+#     # your code here
+#     m = len(values)
+#     SSE = np.square(np.dot(features, theta) - values).sum()
+#     cost = SSE/(2*m)
+#     return cost
 
-    m = len(values)
-    cost_history = []
+# def gradient_descent(features, values, theta, alpha, num_iterations):
+#     """
+#     Perform gradient descent given a data set with an arbitrary number of features.
+#     """
 
-    for i in range(num_iterations):
-        # your code here
-        predicted_values = np.dot(features, theta)
-        theta = theta - alpha / m * np.dot((predicted_values - values), features)
+#     m = len(values)
+#     cost_history = []
 
-        cost = compute_cost(features, values, theta)
-        cost_history.append(cost)
-    return theta, pandas.Series(cost_history)
+#     for i in range(num_iterations):
+#         # your code here
+#         predicted_values = np.dot(features, theta)
+#         theta = theta - alpha / m * np.dot((predicted_values - values), features)
 
-def predictions(dataframe):
-    '''
-    If you are using your own algorithm/models, see if you can optimize your code so
-    that it runs faster.
-    '''
-    # Select Features (try different features!)
-    #features = dataframe[['rain', 'precipi', 'Hour', 'meantempi']]     #0.46397
-    #features = dataframe[['rain', 'precipi', 'Hour', 'mintempi']]      #0.46429
-    #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi']] #0.46467
-    #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']] #0.46536, num_iter = 100
-    #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']] #0.46532, alpha=0.05
-    features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']]
+#         cost = compute_cost(features, values, theta)
+#         cost_history.append(cost)
+#     return theta, pandas.Series(cost_history)
 
-    # Add UNIT to features using dummy variables
-    dummy_units = pandas.get_dummies(dataframe['UNIT'], prefix='unit')
-    features = features.join(dummy_units)
+# def predictions(dataframe):
+#     '''
+#     If you are using your own algorithm/models, see if you can optimize your code so
+#     that it runs faster.
+#     '''
+#     # Select Features (try different features!)
+#     #features = dataframe[['rain', 'precipi', 'Hour', 'meantempi']]     #0.46397
+#     #features = dataframe[['rain', 'precipi', 'Hour', 'mintempi']]      #0.46429
+#     #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi']] #0.46467
+#     #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']] #0.46536, num_iter = 100
+#     #features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']] #0.46532, alpha=0.05
+#     features = dataframe[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']]
 
-    # Values
-    values = dataframe['ENTRIESn_hourly']
-    m = len(values)
+#     # Add UNIT to features using dummy variables
+#     dummy_units = pandas.get_dummies(dataframe['UNIT'], prefix='unit')
+#     features = features.join(dummy_units)
 
-    features, mu, sigma = normalize_features(features)
-    features['ones'] = np.ones(m) # Add a column of 1s (y intercept)
+#     # Values
+#     values = dataframe['ENTRIESn_hourly']
+#     m = len(values)
 
-    # Convert features and values to numpy arrays
-    features_array = np.array(features)
-    values_array = np.array(values)
+#     features, mu, sigma = normalize_features(features)
+#     features['ones'] = np.ones(m) # Add a column of 1s (y intercept)
 
-    # Set values for alpha, number of iterations.
-    alpha = 0.2 # please feel free to change this value
-    num_iterations = 100 # please feel free to change this value
+#     # Convert features and values to numpy arrays
+#     features_array = np.array(features)
+#     values_array = np.array(values)
 
-    # Initialize theta, perform gradient descent
-    theta_gradient_descent = np.zeros(len(features.columns))
-    theta_gradient_descent, cost_history = gradient_descent(features_array,
-                                                            values_array,
-                                                            theta_gradient_descent,
-                                                            alpha,
-                                                            num_iterations)
+#     # Set values for alpha, number of iterations.
+#     alpha = 0.2 # please feel free to change this value
+#     num_iterations = 100 # please feel free to change this value
 
-    plot = None
-    plot = plot_cost_history(alpha, cost_history)
+#     # Initialize theta, perform gradient descent
+#     theta_gradient_descent = np.zeros(len(features.columns))
+#     theta_gradient_descent, cost_history = gradient_descent(features_array,
+#                                                             values_array,
+#                                                             theta_gradient_descent,
+#                                                             alpha,
+#                                                             num_iterations)
 
-    predictions = np.dot(features_array, theta_gradient_descent)
-    return predictions, plot
+#     plot = None
+#     plot = plot_cost_history(alpha, cost_history)
+
+#     predictions = np.dot(features_array, theta_gradient_descent)
+#     return predictions, plot
 
 
-def plot_cost_history(alpha, cost_history):
-   """This function is for viewing the plot of your cost history.
-   You can run it by uncommenting this
+# def plot_cost_history(alpha, cost_history):
+#    """This function is for viewing the plot of your cost history.
+#    You can run it by uncommenting this
 
-       plot_cost_history(alpha, cost_history)
+#        plot_cost_history(alpha, cost_history)
 
-   call in predictions.
+#    call in predictions.
 
-   If you want to run this locally, you should print the return value
-   from this function.
-   """
-   cost_df = pandas.DataFrame({
-      'Cost_History': cost_history,
-      'Iteration': range(len(cost_history))
-   })
-   return ggplot(cost_df, aes('Iteration', 'Cost_History')) + \
-      geom_point() + ggtitle('Cost History for alpha = %.3f' % alpha )
+#    If you want to run this locally, you should print the return value
+#    from this function.
+#    """
+#    cost_df = pandas.DataFrame({
+#       'Cost_History': cost_history,
+#       'Iteration': range(len(cost_history))
+#    })
+#    return ggplot(cost_df, aes('Iteration', 'Cost_History')) + \
+#       geom_point() + ggtitle('Cost History for alpha = %.3f' % alpha )
 
-def plot_residuals(turnstile_weather, predictions):
-    '''
-    Plot a histogram of the residuals (the difference between the original
-    hourly entry data and the predicted values).
-    http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm
-    '''
-    plt.figure()
-    (turnstile_weather['''ENTRIESn_hourly'''] - predictions).hist(bins=100)
-    return plt
+# def plot_residuals(turnstile_weather, predictions):
+#     '''
+#     Plot a histogram of the residuals (the difference between the original
+#     hourly entry data and the predicted values).
+#     http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm
+#     '''
+#     plt.figure()
+#     (turnstile_weather['''ENTRIESn_hourly'''] - predictions).hist(bins=100)
+#     return plt
 
-def compute_r_squared(data, predictions):
-    '''
-    Given a list of data pointpredicted data points, calculate the R^2 value.
-    '''
+# def compute_r_squared(data, predictions):
+#     '''
+#     Given a list of data pointpredicted data points, calculate the R^2 value.
+#     '''
 
-    # your code here
-    SST = ((data - np.mean(data))**2).sum()
-    SSReg = ((predictions - data)**2).sum()
-    r_squared = 1 - SSReg / SST
-    return r_squared
+#     # your code here
+#     SST = ((data - np.mean(data))**2).sum()
+#     SSReg = ((predictions - data)**2).sum()
+#     r_squared = 1 - SSReg / SST
+#     return r_squared
 
 # def normalize_features(df):
 #     """
@@ -370,29 +430,52 @@ def compute_r_squared(data, predictions):
 
 #     return df_normalized, mu, sigma
 
-def predictions(weather_turnstile):
-    #
-    # Your implementation goes here. Feel free to write additional
-    # helper functions
-    #
-    features = weather_turnstile[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']]
+# def predictions(weather_turnstile):
+#     #
+#     # Your implementation goes here. Feel free to write additional
+#     # helper functions
+#     #
+#     features = weather_turnstile[['rain', 'meanwindspdi', 'Hour', 'mintempi', 'fog']]
 
-    # Add UNIT to features using dummy variables
-    dummy_units = pandas.get_dummies(weather_turnstile['UNIT'], prefix='unit')
-    features = features.join(dummy_units)
+#     # Add UNIT to features using dummy variables
+#     dummy_units = pandas.get_dummies(weather_turnstile['UNIT'], prefix='unit')
+#     features = features.join(dummy_units)
 
-    values = weather_turnstile['ENTRIESn_hourly']
-    m = len(values)
+#     values = weather_turnstile['ENTRIESn_hourly']
+#     m = len(values)
 
-    features, mu, sigma = normalize_features(features)
-    features['ones'] = np.ones(m) # Add a column of 1s (y intercept)
+#     features, mu, sigma = normalize_features(features)
+#     features['ones'] = np.ones(m) # Add a column of 1s (y intercept)
 
-    features_array = np.array(features)
-    features_array = sm.add_constant(features_array)
+#     features_array = np.array(features)
+#     features_array = sm.add_constant(features_array)
 
-    values_array = np.array(values)
+#     values_array = np.array(values)
 
-    model = sm.OLS(values_array, features_array)
-    res = model.fit()
-    prediction = model.predict(res.params)
-    return prediction
+#     model = sm.OLS(values_array, features_array)
+#     res = model.fit()
+#     prediction = model.predict(res.params)
+#     return prediction
+
+# if __name__ == '__main__':
+    # print "Number of rainy days:"
+    # print num_rainy_days('weather_underground.csv')
+    # raw_input("Press Enter to continue...")
+    # print "Maximum temperature aggregate by fog:"
+    # print max_temp_aggregate_by_fog('weather_underground.csv')
+    # raw_input("Press Enter to continue...")
+    # print "Average minimum temperature:"
+    # print avg_min_temperature('weather_underground.csv')
+    # raw_input("Press Enter to continue...")
+    # print "Fixed turnstile data:"
+    # fix_turnstile_data(["turnstile_110528.txt", "turnstile_110604.txt"])
+    # print open('updated_turnstile_110507.txt').read()
+    # raw_input("Press Enter to continue...")
+    # print "Filter by regular:"
+    # df = filter_by_regular('turnstile_data.csv')
+    # print df
+    # raw_input("Press Enter to continue...")
+    # print "Hourly entries:"
+    # df = pandas.read_csv('turnstile_data.csv')
+    # print get_hourly_entries(df)
+    # raw_input("Press Enter to continue...")
