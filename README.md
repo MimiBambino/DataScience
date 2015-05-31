@@ -62,14 +62,14 @@ p-value: 0.024999912793489721
 
 > A residual plot will help determine whether the model is biased in an obvious way.  In particular if there is a discernable pattern in the residuals plot, the model is biased.
 
-![Residuals plot](residualslink)
+![Residuals plot](https://github.com/MimiBambino/DataScience/blob/master/img/residuals_rain.png)
 
 > This residuals plot indicates that there are trends that the model is not picking up.  As a result, I do not believe that this model fits the data well enough.  I feel that a different type of model might be a better choice for this data.
 
 ##Section 3. Visualization
 *3.1 Include and describe a visualization containing two histograms: one of  ENTRIESn_hourly for rainy days and one of ENTRIESn_hourly for non-rainy days.*
 
-![ENTRIESn_hourly Histogram](entrieshourlyhistogram-link)
+![ENTRIESn_hourly Histogram](https://github.com/MimiBambino/DataScience/blob/master/img/rain-noRain-hist.png)
 
 > This plot shows the number of entries per hour on rainy days and the number of entries per hour on clear days on the same graph.  This data is clearly not normally distributed, but the two distributions are strikingly similar to each other.
 
@@ -77,7 +77,7 @@ p-value: 0.024999912793489721
 
 *3.2 Include and describe a freeform visualization.*
 
-![Average Number of Riders By Hour](entriesbytime-link)
+![Average Number of Riders By Hour](https://github.com/MimiBambino/DataScience/blob/master/img/riders_by_hour.png)
 
 > I plotted the average number of riders per hour. There are many peaks and valleys.  The true ridership is surely more even than this graph indicates.  The data for New York City subway ridership reports the number of entries every 4 hours with a few other oddly timed reports.  Therefore, there are peaks at 8:00am, noon, 4:00pm and 8:00pm.  It might be more useful to use a smoothing algorithm to show an average ridership, but plotting data points that we don't actually have might also be misleading.
 
