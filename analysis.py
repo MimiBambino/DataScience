@@ -216,36 +216,6 @@ def entries_histogram(turnstile_weather):
 
     return plt
 
-def entries_histogram_prop(turnstile_weather):
-    '''
-    Returns a histogram of entries on rainy days and entries on clear days.
-    '''
-    rain = turnstile_weather['ENTRIESn_hourly'][turnstile_weather['rain'] == 0]
-    count_rain = len(rain)
-    no_rain = turnstile_weather['ENTRIESn_hourly'][turnstile_weather['rain'] == 1]
-    count_no_rain = len(no_rain)
-    rain_prop = rain / (count_rain + count_no_rain)
-    no_rain_prop = no_rain / (count_rain + count_no_rain)
-
-    bins = 100
-    alpha = 0.7
-    xmin = ymin = 0
-    xmax = 600
-    ymax = 100
-
-    plt.figure()
-    rain.hist(bins=bins, alpha=alpha) # your code here to plot a historgram for hourly entries when it is raining
-    no_rain.hist(bins=bins, alpha=alpha) # your code here to plot a historgram for hourly entries when it is not raining
-
-    plt.axis([xmin, xmax, ymin, ymax])
-    plt.suptitle('Histogram of ENTRIESn_hourly')
-    plt.xlabel('ENTRIESn_hourly')
-    plt.ylabel('Count')
-    plt.legend(['No rain', 'Rain'])
-    plt.show()
-
-    return plt
-
 entries_histogram(turnstile_weather)
 
 def riders_by_hour(turnstile_weather):
@@ -394,15 +364,15 @@ def mann_whitney_plus_means(turnstile_weather):
 #    return ggplot(cost_df, aes('Iteration', 'Cost_History')) + \
 #       geom_point() + ggtitle('Cost History for alpha = %.3f' % alpha )
 
-# def plot_residuals(turnstile_weather, predictions):
-#     '''
-#     Plot a histogram of the residuals (the difference between the original
-#     hourly entry data and the predicted values).
-#     http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm
-#     '''
-#     plt.figure()
-#     (turnstile_weather['''ENTRIESn_hourly'''] - predictions).hist(bins=100)
-#     return plt
+def plot_residuals(turnstile_weather, predictions):
+    '''
+    Plot a histogram of the residuals (the difference between the original
+    hourly entry data and the predicted values).
+    http://www.itl.nist.gov/div898/handbook/pri/section2/pri24.htm
+    '''
+    plt.figure()
+    (turnstile_weather['''ENTRIESn_hourly'''] - predictions).hist(bins=100)
+    return plt
 
 # def compute_r_squared(data, predictions):
 #     '''

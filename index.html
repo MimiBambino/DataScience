@@ -36,7 +36,7 @@
 <p><em>1.1 Which statistical test did you use to analyse the NYC subway data? Did you use a one-tail or a two-tail P value? What is the null hypothesis? What is your p-critical value?</em></p>
 
 <blockquote>
-<p>This analysis determines whether ridership on the New York City Subway system is significantly different on rainy days versus on clear/non-rainy days. The null hypothesis is that rain has no effect on mean ridership, i.e., the means of the rainy day ridership and clear day ridership are equal.  Therefore, this is a two-sided problem, because we have not hypothesized that one sample will be higher than the other, just that they are not equal. In order to test the hypothesis, I used the Mann-Whitney U Test.  This test provides a one-sided p-value, so we need to multiply the p-value returned by the test by 2.  The p-critical value is 5%.</p>
+<p>This analysis determines whether ridership on the New York City Subway system is significantly different on rainy days versus on clear/non-rainy days. The null hypothesis is that the means of the rainy day ridership and clear day ridership are equal.  Therefore, this is a two-sided problem, because we have not hypothesized that one sample will be higher than the other, just that they are not equal. In order to test the hypothesis, I used the Mann-Whitney U Test.  This test provides a one-sided p-value, so we need to multiply the p-value returned by the test by 2.  The p-critical value is 5%.</p>
 </blockquote>
 
 <p><em>1.2 Why is this statistical test applicable to the dataset? In particular, consider the assumptions that the test is making about the distribution of ridership in the two samples.</em></p>
@@ -100,15 +100,14 @@ p-value: 0.024999912793489721
 <p><em>2.6 What does this R2 value mean for the goodness of fit for your regression model? Do you think this linear model to predict ridership is appropriate for this dataset, given this R2 value?</em></p>
 
 <blockquote>
-<p>R2 is the percentage of variance that is explained by the model.  Higher is generally better, and this model's R2 is higher than 0.4. However, when determining goodness of fit, it is important to consider a residual plot as well.</p>
-
-<p>A residual plot will help determine whether the model is biased in an obvious way.  In particular if there is a discernable pattern in the residuals plot, the model is biased.</p>
+<p>R2 is the percentage of variance that is explained by the model.  Higher is generally better, and this model's R2, over .52, is higher than 0.4. However, when determining goodness of fit, it is important to consider residuals as well.</p>
 </blockquote>
 
-<p><a href="https://github.com/MimiBambino/DataScience/blob/master/img/residuals_rain.png" target="_blank"><img src="https://github.com/MimiBambino/DataScience/raw/master/img/residuals_rain.png" alt="Residuals plot" style="max-width:100%;"></a></p>
+<p><a href="https://github.com/MimiBambino/DataScience/blob/master/img/residuals_histogram.png" target="_blank"><img src="https://github.com/MimiBambino/DataScience/raw/master/img/residuals_histogram.png" alt="Residuals histogram" style="max-width:100%;"></a></p>
 
 <blockquote>
-<p>This residuals plot indicates that there are trends that the model is not picking up.  As a result, I do not believe that this model fits the data well enough.  I feel that a different type of model might be a better choice for this data.</p>
+<p>This residuals histogram indicates that there rather long tails with several extremely large values. A very long tailed residuals histogram is an indicator that the linear model is not a great fit. As a result, I do not believe that this model fits the data well enough and I believe a different type of model might be a better choice for this data.</p>
+<p>A residual plot would help determine whether the model is biased in an obvious way.  In particular if there is a discernable pattern in the residuals plot, the model is biased.</p>
 </blockquote>
 
 <h2><a id="user-content-section-3-visualization" class="anchor" href="#section-3-visualization" aria-hidden="true"><span class="octicon octicon-link"></span></a>Section 3. Visualization</h2>
