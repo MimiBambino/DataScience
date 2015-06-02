@@ -3,6 +3,7 @@ import pandas
 import statsmodels.api as sm
 from sklearn import linear_model
 import matplotlib.pyplot as plt
+
 """
 In this question, you need to:
 1) implement the linear_regression() procedure
@@ -87,13 +88,15 @@ turnstile_weather = pandas.read_csv(turnstile_weather)
 
 predictions, values = predictions(turnstile_weather)
 
-plt.scatter(predictions - np.mean(values), values, s=40)
+# plt.scatter(predictions - np.mean(values), values, s=40)
 
-plt.title("Residuals Plot of Predictions")
-# plt.hlines(y = 0, xmin=0, xmax=0)
+plt.plot(values - predictions)
 plt.ylabel('Residuals')
 plt.xlabel('Observed Hourly Entries')
+plt.title("Residuals Plot of Predictions")
+plt.xlim(0,130000)
 plt.show()
+
 print sum(predictions - values)
 
 # plt.hist(predictions - values, bins=250)
